@@ -105,6 +105,12 @@ class Application(akConnections):
         self._VOG.StopRecording()
 
     def goggleCalibration(self):
+        if not self._sd._flag_calibrate:
+            self._VOG.StartRecording()
+            time.sleep(1) 
+        else:
+            self._VOG.StopRecording()
+            time.sleep(1) 
         self._sd._flag_calibrate = self._sd._flag_calibrate != True
         print("Calibration: "+str(self._sd._flag_calibrate))
         
