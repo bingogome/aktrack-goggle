@@ -26,6 +26,7 @@ class akScreenDot:
     def __init__(self, width2, height2):
 
         self._top = tkinter.Tk()
+        self._top.title("Goggle")
         self._dot = None
         self.monitorInfo(width2, height2)
         self.canvasSettings()
