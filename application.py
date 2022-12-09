@@ -106,6 +106,7 @@ class Application(akConnections):
 
     def goggleCalibration(self):
         self._sd._flag_calibrate = self._sd._flag_calibrate != True
+        print("Calibration: "+str(self._sd._flag_calibrate))
         
 if __name__ == "__main__":
     app = Application()
