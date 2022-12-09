@@ -32,6 +32,7 @@ class akScreenDot:
         self.keyBindings()
 
         self._flag_calibrate = False
+        self._flag_fullscreen = False
 
     def monitorInfo(self, width2, height2):
         self._width1= self._top.winfo_screenwidth()
@@ -70,8 +71,13 @@ class akScreenDot:
         self.clear()
 
     def fullScreen(self, e=None):
-        self._top.attributes("-topmost", 1)
-        self._top.attributes("-fullscreen", True)
+        if not self._flag_fullscreen:
+            self._top.attributes("-topmost", 1)
+            self._top.attributes("-fullscreen", True)
+        else:
+            self._top.attributes("-topmost", 0)
+            self._top.attributes("-fullscreen", False)
+        self._flag_fullscreen = self._flag_fullscreen != True
 
     def visualStimulusSet(self, coor):
         if self._dot:
