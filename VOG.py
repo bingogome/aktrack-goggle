@@ -18,7 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import ctypes
+import clr
 
 class VOG:
     def __init__(self, eyeTrackerDllPath):
@@ -26,4 +26,10 @@ class VOG:
         self.eyeTrackerDll = None
         self.eyeTrackerDllPath = eyeTrackerDllPath
     def setup(self):
-        self.eyeTrackerDll = ctypes.WinDLL(self.eyeTrackerDllPath)
+        self.eyeTrackerDll = clr.AddReference(self.eyeTrackerDllPath)
+        from VORLab.VOG.Remote import EyeTrackerClient
+        self.eyeTracker = EyeTrackerClient("10.17.101.204", 9000);
+
+if __name__ == "__main__":
+    app = VOG("C:\EyeTracker Debug 2018-22-08\EyeTrackerRemoteClient.dll")
+    app.setup()
