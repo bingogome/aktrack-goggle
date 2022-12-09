@@ -18,9 +18,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import clr
+import clr, time
 
 class VOG:
+
     def __init__(self, eyeTrackerDllPath):
         self.eyeTracker = None
         self.eyeTrackerDll = None
@@ -28,7 +29,32 @@ class VOG:
     def setup(self):
         self.eyeTrackerDll = clr.AddReference(self.eyeTrackerDllPath)
         from VORLab.VOG.Remote import EyeTrackerClient
-        self.eyeTracker = EyeTrackerClient("10.17.101.204", 9000);
+        self.eyeTracker = EyeTrackerClient("10.17.101.204", 9000)
+    
+    def IsRecording(self):
+        status = self.eyeTracker.Status
+        result = status.Recording
+        return result
+    
+    def SetSessionName(self, sessionName):
+        if self.eyeTracker:
+            self.eyeTracker.ChangeSetting('SessionName',sessionName)
+        
+    def StartRecording(self):
+        if self.eyeTracker:
+            self.eyeTracker.StartRecording()
+    
+    def StopRecording(self):
+        if self.eyeTracker:
+            self.eyeTracker.StopRecording()
+    
+    def RecordEvent(self, message):
+        frameNumber = []
+        if self.eyeTracker:
+            t = time.time()
+            frameNumber = self.eyeTracker.RecordEvent(str(t) + ' ' + message)
+            frameNumber = float(frameNumber)
+        return frameNumber
 
 if __name__ == "__main__":
     app = VOG("C:\EyeTracker Debug 2018-22-08\EyeTrackerRemoteClient.dll")
