@@ -37,8 +37,8 @@ class Application(akConnections):
 
     def setup(self):
         super().setup()
-        self._sd.setup()
         self._VOG.setup()
+        self._sd.setup()
         
     def clear(self, *args):
         super().clear()
