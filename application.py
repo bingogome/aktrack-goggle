@@ -69,39 +69,51 @@ class Application(akConnections):
         data = self._data_buff.decode("UTF-8")
         if data == "1":
             self.goggleVPBhfixedStart()
+            print("Acking ...")
             self.utilSendTextCmdack("ack")
             print("VPB-hfixed")
         if data == "2":
             self.goggleVPBhfreeStart()
+            print("Acking ...")
             self.utilSendTextCmdack("ack")
             print("VPB-hfree")
         if data == "3":
             self.goggleVPBhfixedEnd()
+            print("Acking ...")
             self.utilSendTextCmdack("ack")
             print("VPB-hfixed end")
         if data == "4":
             self.goggleVPBhfreeEnd()
+            print("Acking ...")
             self.utilSendTextCmdack("ack")
             print("VPB-hfree end")
 
     def goggleVPBhfixedStart(self):
+        print("Starting recording ...")
         self._VOG.StartRecording()
         time.sleep(1) 
+        print("Event stamp (Start)")
         self._VOG.RecordEvent('stat 1 start')
 
     def goggleVPBhfixedEnd(self):
+        print("Event stamp (end)")
         self._VOG.RecordEvent('stat 1 end')
         time.sleep(1) 
+        print("Ending recording ...")
         self._VOG.StopRecording()
 
     def goggleVPBhfreeStart(self):
+        print("Starting recording ...")
         self._VOG.StartRecording()
         time.sleep(1) 
+        print("Event stamp (Start)")
         self._VOG.RecordEvent('stat 2 start')
 
     def goggleVPBhfreeEnd(self):
+        print("Event stamp (end)")
         self._VOG.RecordEvent('stat 2 end')
         time.sleep(1) 
+        print("Ending recording ...")
         self._VOG.StopRecording()
 
     def goggleCalibration(self):
